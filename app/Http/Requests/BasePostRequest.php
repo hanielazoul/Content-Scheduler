@@ -21,6 +21,9 @@ abstract class BasePostRequest extends FormRequest
 
     protected function validatePlatformRequirements($validator)
     {
+        if (is_null($this->platforms)) {
+            return true;
+        }
         // Check if Instagram is selected and image is required
         $instagram = Platform::where('name', 'Instagram')->first();
         if (in_array($instagram->id, $this->platforms) && !$this->hasFile('image') && !$this->hasExistingImage()) {
@@ -35,4 +38,4 @@ abstract class BasePostRequest extends FormRequest
     }
 
     abstract protected function hasExistingImage(): bool;
-} 
+}

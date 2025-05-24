@@ -38,6 +38,9 @@ class StorePostRequest extends FormRequest
 
     private function validatePlatformRequirements($validator)
     {
+        if (is_null($this->platforms)){
+            return true;
+        }
         // Check if Instagram is selected and image is required
         $instagram = Platform::where('name', 'Instagram')->first();
         if (in_array($instagram->id, $this->platforms) && !$this->hasFile('image')) {
